@@ -1,12 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, LayoutGroup } from 'motion/react';
+
+const tabs = [
+  { label: 'Scroll Gallery', path: '/gallery' },
+  { label: 'Gear', path: '/gear' },
+  { label: 'About', path: '/about' },
+];
 
 const Navbar = () => {
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const selectedTab = tabs.findIndex(t => location.pathname === t.path);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +33,14 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleTabClick = (tab: typeof tabs[number]) => {
+    if (tab.path === '/gallery' && location.pathname === '/gallery') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate(tab.path);
+    }
+  };
+
   return (
     <motion.nav
       className="bg-black text-white fixed w-full z-50 border-b border-gray-800"
@@ -39,36 +55,39 @@ const Navbar = () => {
           >
             DDWUMP
           </span>
-          <div className="flex items-center gap-6 text-[14px] font-light leading-[1.4] text-gray-400">
-            <a
-              href="#gallery"
-              onClick={(e) => {
-                e.preventDefault();
-                if (location.pathname !== '/gallery') {
-                  navigate('/gallery');
-                } else {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-              }}
-              className="hover:text-white transition-colors duration-[200ms]"
-            >
-              Scroll Gallery
-            </a>
-            <a
-              href="/gear"
-              onClick={(e) => { e.preventDefault(); navigate('/gear'); }}
-              className="hover:text-white transition-colors duration-[200ms]"
-            >
-              Gear
-            </a>
-            <a
-              href="/about"
-              onClick={(e) => { e.preventDefault(); navigate('/about'); }}
-              className="hover:text-white transition-colors duration-[200ms]"
-            >
-              About
-            </a>
-          </div>
+
+          {/* Tab select */}
+          <LayoutGroup>
+            <ul className="flex items-center gap-1" role="tablist">
+              {tabs.map((tab, i) => {
+                const isSelected = selectedTab === i;
+                return (
+                  <li key={tab.path} role="none">
+                    <motion.button
+                      role="tab"
+                      aria-selected={isSelected}
+                      onClick={() => handleTabClick(tab)}
+                      whileTap={{ scale: 0.95 }}
+                      whileFocus={{ scale: 1.05 }}
+                      className="relative px-3 py-1.5 text-[14px] font-light rounded-full outline-none cursor-pointer"
+                      style={{ color: isSelected ? '#fff' : '#9ca3af' }}
+                    >
+                      {isSelected && (
+                        <motion.span
+                          layoutId="nav-pill"
+                          className="absolute inset-0 rounded-md bg-white/10"
+                          transition={{ type: 'spring', stiffness: 200, damping: 30 }}
+                        />
+                      )}
+                      <span className="relative z-10 transition-colors duration-200">
+                        {tab.label}
+                      </span>
+                    </motion.button>
+                  </li>
+                );
+              })}
+            </ul>
+          </LayoutGroup>
         </div>
       </div>
     </motion.nav>

@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import Navbar from '../components/Navbar';
 import gearX100V from '../assets/gear-x100v.webp';
 import gearIxus from '../assets/gear-ixus.webp';
 import gearOsmo from '../assets/gear-osmo.webp';
@@ -87,7 +86,6 @@ export default function Gear() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
-      <Navbar />
       <div className="h-14" />
 
       {/* Portrait: stacked. Landscape / desktop: side by side */}

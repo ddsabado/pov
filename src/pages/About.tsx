@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
 import { Instagram } from 'lucide-react';
-import Navbar from '../components/Navbar';
 
 const SpotifyIcon = () => (
   <svg viewBox="0 0 24 24" className="w-7 h-7" fill="currentColor" aria-hidden="true">
@@ -16,7 +15,6 @@ const About = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeInOut' }}
     >
-      <Navbar />
       <div className="h-14" />
 
       <section className="flex-1 py-24">

@@ -1,5 +1,4 @@
 import { motion } from 'motion/react';
-import Navbar from '../components/Navbar';
 import Gallery from '../components/Gallery';
 
 const Home = () => {
@@ -10,9 +9,6 @@ const Home = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, ease: 'easeInOut' }}
     >
-      <Navbar />
-
-      {/* Spacer for fixed navbar + breathing room */}
       <div className="h-20" />
 
       <Gallery />
