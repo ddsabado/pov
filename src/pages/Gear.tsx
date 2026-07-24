@@ -5,6 +5,8 @@ import gearX100V from '../assets/gear-x100v.webp';
 import gearIxus from '../assets/gear-ixus.webp';
 import gearOsmo from '../assets/gear-osmo.webp';
 import gearGodox from '../assets/gear-godox.jpg';
+import gearUlanzi from '../assets/gear-ulanzi.webp';
+import gearMa02 from '../assets/gear-ma02.jpg';
 
 interface GearItem {
   id: string;
@@ -20,13 +22,14 @@ const gears: GearItem[] = [
   { id: 'ixus',   name: 'Canon IXUS 115 HS',   subtitle: 'Point & Shoot',       description: 'A compact point-and-shoot that fits in any pocket. The IXUS 115 HS brings a lo-fi, casual energy to shooting. Sometimes the best camera is the one that disappears into the moment.', specs: ['28mm wide-angle', '12.1MP CMOS', 'Smart IS stabilization', 'Pocket-sized'], image: gearIxus },
   { id: 'osmo',   name: 'DJI Osmo Action 6',   subtitle: 'Action Camera',       description: "Built for moments that move. The Osmo Action 6 handles the shots that other cameras can't — water, dust, fast motion. RockSteady stabilization makes handheld footage feel cinematic even in rough conditions.", specs: ['4K 120fps', 'RockSteady 3.0+', 'Horizon steady', 'Waterproof 20m'], image: gearOsmo },
   { id: 'godox',  name: 'Godox iT30 Pro',       subtitle: 'Portable Flash',      description: 'A compact TTL flash that punches above its size. The iT30 Pro fills shadows and adds dimension in low-light environments without overwhelming the natural atmosphere of a scene.', specs: ['30Ws output', 'TTL / Manual', '2.4G wireless', 'USB-C charging'], image: gearGodox },
+  { id: 'ulanzi', name: 'Ulanzi MT-80',           subtitle: 'Travel Tripod',       description: 'A 7-foot aluminum tripod that auto-opens with one pull. The MT-80 goes from bag to fully deployed in seconds — useful for self-portraits, long exposures, and anywhere you need a stable platform without the bulk.', specs: ['7ft / 213cm max height', '11 lb load capacity', '360° ball head', '1/4"-20 mount'], image: gearUlanzi },
+  { id: 'ma02',   name: 'Godox MA02',             subtitle: 'Magnetic Filter Kit', description: 'A magnetic accessory kit for the iT30 Pro. Snap on CTO, CTB, or creative color gels in one touch to shift the mood of a scene without slowing down. The diffuser softens harsh flash output for close-up work.', specs: ['Magnetic snap-on system', 'CTO / CTB correction gels', 'Creative color filters', 'Diffuser included'], image: gearMa02 },
 ];
 
 const RADIUS = 280;
 const ITEM_SIZE = 180;
-// Items at 0°=x100v, 90°=ixus, 180°=osmo, 270°=godox
-// Active position = 0° (3 o'clock). Initial rotation = 0 → x100v at 0° ✓
-const BASE_ANGLES = [0, 90, 180, 270];
+// 6 items × 60° = full circle. Active position = 0° (3 o'clock).
+const BASE_ANGLES = [0, 60, 120, 180, 240, 300];
 
 export default function Gear() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -41,7 +44,7 @@ export default function Gear() {
     scrollLock.current = true;
     setDirection(dir);
     setActiveIndex(i => (i + dir + gears.length) % gears.length);
-    setRotation(r => r - dir * 90); // clockwise scroll = wheel rotates counterclockwise
+    setRotation(r => r - dir * 60); // 60° per step for 6 items
     setTimeout(() => { scrollLock.current = false; wheelAccum.current = 0; }, 700);
   }, []);
 
