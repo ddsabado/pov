@@ -3,6 +3,9 @@
 html, body {
   background-color: #000;
   margin: 0;
+}
+
+body.has-scrollbar {
   scrollbar-gutter: stable;
 }
 

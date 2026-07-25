@@ -26,6 +26,17 @@ const getUrl = (publicId: string) =>
     .delivery(format(autoFormat()))
     .toURL();
 
+const fisherYates = <T,>(arr: T[]): T[] => {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+
+const shuffledPhotos = fisherYates(landingPhotos);
+
 const INTERVAL = 4000;
 
 const Landing = () => {
@@ -41,7 +52,7 @@ const Landing = () => {
 
   // Preload all landing images on mount
   useEffect(() => {
-    landingPhotos.forEach(id => {
+    shuffledPhotos.forEach(id => {
       const img = new Image();
       img.src = getUrl(id);
     });
@@ -60,7 +71,7 @@ const Landing = () => {
   // Cycle through photos
   useEffect(() => {
     const timer = setInterval(() => {
-      setIndex(i => (i + 1) % landingPhotos.length);
+      setIndex(i => (i + 1) % shuffledPhotos.length);
     }, INTERVAL);
     return () => clearInterval(timer);
   }, []);
@@ -92,7 +103,7 @@ const Landing = () => {
             transition={{ duration: 1.2, ease: 'easeInOut' }}
           >
             <img
-              src={getUrl(landingPhotos[index])}
+              src={getUrl(shuffledPhotos[index])}
               alt=""
               className="w-full h-full object-cover"
             />

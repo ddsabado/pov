@@ -21,10 +21,10 @@ A photography portfolio for DDWUMP (Dwight Sabado) — built with React, Vite, T
 ## Pages
 
 ### `/` — Landing
-- Full-screen photo slideshow (9 photos, 4s interval, 1.2s crossfade)
+- Full-screen photo slideshow (9 photos, 4s interval, 1.2s crossfade, order shuffled via Fisher-Yates on each visit)
 - DDWUMP brand top-right, View button bottom-center
 - On click: background fades to black while DDWUMP animates via shared `layoutId` transition into the navbar position
-- Scroll locked on this page
+- Scroll locked on this page; `scrollbar-gutter` disabled to prevent black bar on right edge
 
 ### `/gallery` — Scroll Gallery
 - 23 photo groups fetched from Cloudinary tags

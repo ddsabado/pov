@@ -1,4 +1,5 @@
 import './index.css';
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { LayoutGroup } from 'motion/react';
 import Landing from './pages/Landing';
@@ -9,11 +10,19 @@ import Navbar from './components/Navbar';
 
 const Layout = () => {
   const location = useLocation();
-  const hiddenNavbar = location.pathname === '/';
+  const isLanding = location.pathname === '/';
+
+  useEffect(() => {
+    if (isLanding) {
+      document.body.classList.remove('has-scrollbar');
+    } else {
+      document.body.classList.add('has-scrollbar');
+    }
+  }, [isLanding]);
 
   return (
     <LayoutGroup>
-      {!hiddenNavbar && <Navbar />}
+      {!isLanding && <Navbar />}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/gallery" element={<Home />} />
