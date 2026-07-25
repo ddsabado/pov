@@ -1,5 +1,6 @@
 import './index.css';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { LayoutGroup } from 'motion/react';
 import Landing from './pages/Landing';
 import Home from './pages/Home';
 import Gear from './pages/Gear';
@@ -11,7 +12,7 @@ const Layout = () => {
   const hiddenNavbar = location.pathname === '/';
 
   return (
-    <>
+    <LayoutGroup>
       {!hiddenNavbar && <Navbar />}
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -19,7 +20,7 @@ const Layout = () => {
         <Route path="/gear" element={<Gear />} />
         <Route path="/about" element={<About />} />
       </Routes>
-    </>
+    </LayoutGroup>
   );
 };
 

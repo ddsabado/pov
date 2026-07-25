@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { motion, LayoutGroup } from 'motion/react';
+import { motion } from 'motion/react';
 
 const tabs = [
   { label: 'Scroll Gallery', path: '/gallery' },
@@ -49,16 +49,17 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
-          <span
+          <motion.span
+            layoutId="ddwump"
             onClick={() => navigate('/')}
             className="font-bold text-2xl tracking-tight cursor-pointer hover:text-gray-300 transition-colors duration-[200ms]"
+            transition={{ duration: 1.4, ease: [0.4, 0, 0.2, 1] }}
           >
             DDWUMP
-          </span>
+          </motion.span>
 
           {/* Tab select */}
-          <LayoutGroup>
-            <ul className="flex items-center gap-1" role="tablist">
+          <ul className="flex items-center gap-1" role="tablist">
               {tabs.map((tab, i) => {
                 const isSelected = selectedTab === i;
                 return (
@@ -87,7 +88,6 @@ const Navbar = () => {
                 );
               })}
             </ul>
-          </LayoutGroup>
         </div>
       </div>
     </motion.nav>

@@ -36,7 +36,7 @@ const Landing = () => {
   const enter = useCallback(() => {
     if (exiting) return;
     setExiting(true);
-    setTimeout(() => navigate('/gallery'), 800);
+    navigate('/gallery');
   }, [navigate, exiting]);
 
   // Preload all landing images on mount
@@ -75,39 +75,48 @@ const Landing = () => {
   }, [enter]);
 
   return (
-    <motion.div
-      className="relative w-screen h-screen overflow-hidden bg-black"
-      animate={exiting ? { opacity: 0 } : { opacity: 1 }}
-      transition={{ duration: 0.8, ease: 'easeInOut' }}
-    >
-      {/* Background slideshow */}
-      <AnimatePresence>
-        <motion.div
-          key={index}
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.2, ease: 'easeInOut' }}
-        >
-          <img
-            src={getUrl(landingPhotos[index])}
-            alt=""
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/40" />
-        </motion.div>
-      </AnimatePresence>
+    <div className="relative w-screen h-screen overflow-hidden bg-black">
+      {/* Background slideshow — this fades to black */}
+      <motion.div
+        className="absolute inset-0"
+        animate={exiting ? { opacity: 0 } : { opacity: 1 }}
+        transition={{ duration: 1.6, ease: 'easeInOut' }}
+      >
+        <AnimatePresence>
+          <motion.div
+            key={index}
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: 'easeInOut' }}
+          >
+            <img
+              src={getUrl(landingPhotos[index])}
+              alt=""
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/40" />
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
 
-      {/* DDWUMP top right */}
+      {/* DDWUMP — outside the fade, always visible, animates via layoutId */}
       <div className="absolute top-6 right-8 z-10">
-        <span className="font-bold text-white text-[15px] tracking-widest">
+        <motion.span
+          layoutId="ddwump"
+          className="font-bold text-white text-[15px] tracking-widest"
+        >
           DDWUMP
-        </span>
+        </motion.span>
       </div>
 
       {/* View button — bottom center */}
-      <div className="absolute bottom-16 left-0 right-0 flex justify-center z-10">
+      <motion.div
+        className="absolute bottom-16 left-0 right-0 flex justify-center z-10"
+        animate={exiting ? { opacity: 0 } : { opacity: 1 }}
+        transition={{ duration: 0.4 }}
+      >
         <motion.button
           onClick={enter}
           className="font-medium text-white text-[13px] tracking-[0.3em] uppercase px-10 py-3 bg-transparent cursor-pointer select-none"
@@ -129,15 +138,19 @@ const Landing = () => {
         >
           View
         </motion.button>
-      </div>
+      </motion.div>
 
       {/* Footer copyright */}
-      <div className="absolute bottom-6 left-0 right-0 flex justify-center z-10">
+      <motion.div
+        className="absolute bottom-6 left-0 right-0 flex justify-center z-10"
+        animate={exiting ? { opacity: 0 } : { opacity: 1 }}
+        transition={{ duration: 0.4 }}
+      >
         <p className="font-meta text-white/40 text-[11px] tracking-[0.14em]">
           © 2026 Dwight Sabado. All rights reserved.
         </p>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
 
