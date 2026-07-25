@@ -1,108 +1,93 @@
 # POV Portfolio
 
-A modern, responsive photography portfolio built with React, Vite, and Tailwind CSS. Images are hosted on Cloudinary for optimized delivery.
+A photography portfolio for DDWUMP (Dwight Sabado) — built with React, Vite, TypeScript, and Tailwind CSS. Images hosted on Cloudinary. Deployed to GitHub Pages.
+
+## Live Site
+
+[https://ddsabado.github.io/pov-portfolio](https://ddsabado.github.io/pov-portfolio)
 
 ## Tech Stack
 
-- **Framework:** React 19 + Vite 8
-- **Styling:** Tailwind CSS v4
-- **Icons:** Lucide React
-- **Image Hosting:** Cloudinary
-- **Deployment:** GitHub Pages
+| Layer | Choice |
+|---|---|
+| Framework | React 19 + Vite + TypeScript |
+| Styling | Tailwind CSS v4 |
+| Animation | Motion (motion/react) |
+| Icons | Lucide React |
+| Image hosting | Cloudinary SDK |
+| Fonts | Inter + IBM Plex Mono (Google Fonts) |
+| Deployment | GitHub Pages |
 
-## Getting Started
+## Pages
 
-### Prerequisites
+### `/` — Landing
+- Full-screen photo slideshow (9 photos, 4s interval, 1.2s crossfade)
+- DDWUMP brand top-right, View button bottom-center
+- On click: background fades to black while DDWUMP animates via shared `layoutId` transition into the navbar position
+- Scroll locked on this page
 
-- Node.js 18+ and npm
+### `/gallery` — Scroll Gallery
+- 23 photo groups fetched from Cloudinary tags
+- Each group has a custom layout: `default`, `triangle-up/down/left/right`, `triangle-inverted-tail`, `row`, `staggered`, `centered-cascade`, `centered-stack`, `cascade-align`, `cascade-align-3`, `top-center-then-staggered`
+- Groups animate in with staggered fade-up spring on scroll into view, fade out on scroll out
+- Click any photo to open a fullscreen modal with blur backdrop, fade+scale transition, and left/right navigation
+- Modal arrows fade in on open, fade out, reappear on hover in left/right zones
 
-### Installation
+### `/gear` — Gear
+- Rotating half-circle dial showing 6 gear items
+- Scroll or arrow keys to cycle through items
+- Each item animates onto the arc with the standard entrance spring
+- Flavor text (name, subtitle, description, specs) slides up/down on change; fades in on first load
+- Responsive: stacked on portrait mobile, side-by-side on landscape/desktop
 
-```bash
-npm install
-```
+### `/about` — About
+- Minimal page with social links (Instagram, Spotify)
+- Content fades in on load
 
-### Development
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:5173](http://localhost:5173) to view in your browser.
-
-### Build
-
-```bash
-npm run build
-```
-
-### Deploy to GitHub Pages
-
-```bash
-npm run deploy
-```
-
-Your site will be live at: `https://ddsabado.github.io/pov-portfolio/`
-
-## Adding Photos
-
-Edit `src/data/photos.js` to add new photos. Each photo entry follows this structure:
-
-```javascript
-{
-  id: 1,
-  publicId: 'your-cloudinary-public-id',
-  title: 'Photo Title',
-  category: 'Category Name',
-  description: 'Optional description',
-}
-```
-
-Photos are automatically transformed by Cloudinary:
-- **Thumbnails:** `w_600,c_fill,q_auto,f_auto`
-- **Full resolution:** `w_2000,q_auto,f_auto`
+## Navbar
+- Fixed top, hidden on scroll down, revealed on scroll up
+- Tab-select nav with shared `layoutId` pill that slides between active tabs
+- DDWUMP links back to landing; shared `layoutId` with landing page DDWUMP for smooth cross-route transition
 
 ## Project Structure
 
 ```
-POV-portfolio/
-├── src/
-│   ├── components/
-│   │   ├── Navbar.jsx
-│   │   ├── Gallery.jsx
-│   │   ├── PhotoModal.jsx
-│   │   └── Footer.jsx
-│   ├── data/
-│   │   └── photos.js          # Photo data with Cloudinary URLs
-│   ├── pages/
-│   │   └── Home.jsx
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── index.css
-├── public/
-├── index.html
-├── vite.config.js
-├── tailwind.config.js
-└── package.json
+src/
+├── assets/          # Local gear images
+├── components/
+│   ├── Gallery.tsx  # Photo groups + custom layouts
+│   ├── Navbar.tsx   # Hide-on-scroll + animated tab select
+│   └── PhotoModal.tsx
+├── data/
+│   └── photos.ts    # Cloudinary SDK setup + 23 photo groups
+├── pages/
+│   ├── Landing.tsx
+│   ├── Home.tsx
+│   ├── Gear.tsx
+│   └── About.tsx
+├── App.tsx          # Router + shared layout (Navbar lives here)
+└── index.css        # Tailwind v4 @theme tokens
 ```
 
-## Features
+## Getting Started
 
-- ✅ Responsive design (mobile-first)
-- ✅ Dark theme optimized for photography
-- ✅ Category filtering
-- ✅ Lightbox modal with keyboard navigation (← → Esc)
-- ✅ Lazy loading images
-- ✅ Cloudinary image optimization
-- ✅ GitHub Pages deployment ready
+```bash
+npm install
+npm run dev
+```
 
-## Customization
+Open [http://localhost:5173/pov-portfolio](http://localhost:5173/pov-portfolio)
 
-- **Colors:** Edit `tailwind.config.js`
-- **Font:** Inter (loaded from Google Fonts in `index.html`)
-- **Social links:** Update `src/components/Footer.jsx`
-- **Content:** Update sections in `src/pages/Home.jsx`
+## Build & Deploy
 
-## License
+```bash
+npm run build    # production build
+npm run deploy   # deploy to GitHub Pages
+```
 
-MIT
+## Design System
+
+- **Background:** pure black `#000` throughout
+- **Fonts:** Inter (all UI) + IBM Plex Mono (metadata, specs)
+- **Animation standard:** `opacity: 0→1`, `y: 48→0`, `scale: 0.93→1`, spring `stiffness: 120, damping: 16`
+- **Page transitions:** `opacity: 0→1`, `duration: 0.8s`, `ease: easeInOut`
