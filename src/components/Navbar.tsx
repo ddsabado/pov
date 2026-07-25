@@ -43,7 +43,7 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      className="bg-black text-white fixed w-full z-50 border-b border-gray-800"
+      className="bg-black text-white fixed w-full z-50 border-b border-b-gray-900"
       animate={{ y: visible ? 0 : '-100%' }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
     >

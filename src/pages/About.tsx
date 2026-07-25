@@ -19,10 +19,20 @@ const About = () => {
 
       <section className="flex-1 py-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[28px] md:text-[34px] font-semibold leading-[1.2] mb-8 text-white">
+          <motion.h2
+            className="text-[28px] md:text-[34px] font-semibold leading-[1.2] mb-8 text-white"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.1 }}
+          >
             About
-          </h2>
-          <div className="flex items-center gap-6">
+          </motion.h2>
+          <motion.div
+            className="flex items-center gap-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.3 }}
+          >
             <a
               href="https://www.instagram.com/ddwump/"
               target="_blank"
@@ -41,7 +51,7 @@ const About = () => {
             >
               <SpotifyIcon />
             </a>
-          </div>
+          </motion.div>
         </div>
       </section>
 

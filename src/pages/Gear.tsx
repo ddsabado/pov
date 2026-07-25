@@ -38,6 +38,13 @@ export default function Gear() {
   const scrollLock = useRef(false);
   const wheelAccum = useRef(0);
 
+  useEffect(() => {
+    gears.forEach(g => {
+      const img = new Image();
+      img.src = g.image;
+    });
+  }, []);
+
   const cycle = useCallback((dir: 1 | -1) => {
     if (scrollLock.current) return;
     scrollLock.current = true;
@@ -67,6 +74,8 @@ export default function Gear() {
       window.removeEventListener('keydown', onKey);
     };
   }, [cycle]);
+
+  const isFirstRender = useRef(true);
 
   const active = gears[activeIndex];
 
@@ -122,13 +131,16 @@ export default function Gear() {
                   key={gear.id}
                   className="absolute cursor-pointer flex items-center justify-center"
                   style={{ width: itemSize, height: itemSize, left: cx, top: cy, zIndex: 1 }}
+                  initial={{ opacity: 0, y: 48, scale: 0.93 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 120, damping: 16, mass: 1 }}
                   onClick={() => !isActive && cycle(((i - activeIndex + gears.length) % gears.length === 1 ? 1 : -1) as 1 | -1)}
                 >
                   <motion.img
                     src={gear.image}
                     alt={gear.name}
                     className="w-full h-full object-contain"
-                    animate={{ rotate: -rotation, opacity: 1, scale: isActive ? 1.1 : 0.75 }}
+                    animate={{ rotate: -rotation, scale: isActive ? 1.1 : 0.75 }}
                     transition={{ type: 'spring', stiffness: 160, damping: 28, mass: 1 }}
                   />
                 </motion.div>
@@ -138,9 +150,17 @@ export default function Gear() {
         </div>
 
         {/* Gear details */}
-        <div className="flex-1 flex flex-col justify-center px-6 md:px-16 overflow-y-auto md:overflow-visible md:max-w-2xl">
+        <div className="flex-1 flex flex-col justify-center px-6 md:px-30 overflow-y-auto md:overflow-visible md:max-w-2xl">
           <AnimatePresence mode="wait" custom={direction}>
-            <motion.div key={active.id} custom={direction} variants={textVariants} initial="enter" animate="center" exit="exit">
+            <motion.div
+                key={active.id}
+                custom={direction}
+                variants={textVariants}
+                initial={isFirstRender.current ? { opacity: 0 } : 'enter'}
+                animate={isFirstRender.current ? { opacity: 1, transition: { duration: 0.8, ease: 'easeInOut', delay: 0.1 } } : 'center'}
+                exit="exit"
+                onAnimationComplete={() => { isFirstRender.current = false; }}
+              >
               <h1 className="text-[18px] md:text-[42px] font-bold leading-[1.05] tracking-tight mb-1 md:mb-2">{active.name}</h1>
               <p className="font-meta text-gray-500 text-[10px] md:text-[13px] tracking-[0.15em] uppercase mb-2 md:mb-8">{active.subtitle}</p>
               <p className="text-gray-300 text-[11px] md:text-[16px] leading-[1.5] md:leading-[1.75] font-light mb-3 md:mb-10 max-w-lg">{active.description}</p>
