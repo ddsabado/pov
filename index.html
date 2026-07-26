@@ -8,6 +8,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>ddwump</title>
+    <script>
+      // Restore path from ?p= query param set by 404.html redirect
+      (function() {
+        var p = window.location.search.slice(1).split('&').reduce(function(acc, s) {
+          var r = s.split('=');
+          acc[decodeURIComponent(r[0])] = decodeURIComponent(r.slice(1).join('='));
+          return acc;
+        }, {});
+        if (p.p !== undefined) {
+          window.history.replaceState(null, null,
+            '/pov-portfolio/' + p.p.replace(/&/, '?') + (window.location.hash || '')
+          );
+        }
+      })();
+    </script>
     <script type="module" crossorigin src="/pov-portfolio/assets/index-D0aaOQQh.js"></script>
     <link rel="stylesheet" crossorigin href="/pov-portfolio/assets/index-CAWI_CMk.css">
   </head>
