@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <title>POV Portfolio</title>
     <script>
-      // Redirect 404s back to index.html with the path encoded as a query param
-      // so React Router can pick it up on load.
       var l = window.location;
+      var base = '/pov-portfolio';
+      var path = l.pathname.slice(base.length);
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        '/pov-portfolio/?p=' + encodeURIComponent(l.pathname.slice('/pov-portfolio'.length) + (l.search ? '&' + l.search.slice(1) : '')) +
+        base + '/?p=' + encodeURIComponent(path.replace(/^\//, '') + (l.search ? '&' + l.search.slice(1) : '')) +
         l.hash
       );
     </script>
