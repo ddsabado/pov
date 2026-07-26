@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>POV Portfolio</title>
+    <script>
+      var l = window.location;
+      var base = '/pov-portfolio';
+      var path = l.pathname.slice(base.length);
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        base + '/?p=' + encodeURIComponent(path.replace(/^\//, '') + (l.search ? '&' + l.search.slice(1) : '')) +
+        l.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
