@@ -6,6 +6,7 @@ import Landing from './pages/Landing';
 import Home from './pages/Home';
 import Gear from './pages/Gear';
 import About from './pages/About';
+import Album from './pages/Album';
 import Navbar from './components/Navbar';
 
 const Layout = () => {
@@ -28,6 +29,7 @@ const Layout = () => {
         <Route path="/gallery" element={<Home />} />
         <Route path="/gear" element={<Gear />} />
         <Route path="/about" element={<About />} />
+        <Route path="/album" element={<Album />} />
       </Routes>
     </LayoutGroup>
   );
