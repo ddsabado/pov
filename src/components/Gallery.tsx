@@ -60,18 +60,22 @@ const PhotoCard = ({
 );
 
 const Gallery = () => {
-  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
+  const allPhotos = photoGroups.flatMap(g => g.photos);
+  const allIds = allPhotos.map(p => p.publicId);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const prefetchFullRes = (publicId: string) => {
     const img = new Image();
     img.src = getFullRes(publicId).toURL();
   };
 
+  const openPhoto = (photo: Photo) => setActiveIndex(allIds.indexOf(photo.publicId));
+
   const card = (photo: Photo) => (
     <PhotoCard
       key={photo.id}
       photo={photo}
-      onClick={() => setSelectedPhoto(photo)}
+      onClick={() => openPhoto(photo)}
       onMouseEnter={() => prefetchFullRes(photo.publicId)}
     />
   );
@@ -336,11 +340,12 @@ const Gallery = () => {
       </div>
 
       <AnimatePresence>
-        {selectedPhoto && (
+        {activeIndex !== null && (
           <PhotoModal
-            photo={selectedPhoto}
-            onClose={() => setSelectedPhoto(null)}
-            onNavigate={(photo) => setSelectedPhoto(photo)}
+            ids={allIds}
+            activeIndex={activeIndex}
+            onClose={() => setActiveIndex(null)}
+            onNavigate={setActiveIndex}
           />
         )}
       </AnimatePresence>

@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { XCircle, ChevronLeftCircle, ChevronRightCircle } from 'lucide-react';
 import { useAuth } from '../context/auth';
-import { cld } from '../data/photos';
-import { fill, scale } from '@cloudinary/url-gen/actions/resize';
+import { cld, getFullRes } from '../data/photos';
+import { fill } from '@cloudinary/url-gen/actions/resize';
 import { quality, format } from '@cloudinary/url-gen/actions/delivery';
 import { auto } from '@cloudinary/url-gen/qualifiers/quality';
 import { auto as autoFormat } from '@cloudinary/url-gen/qualifiers/format';
+import PhotoModal from '../components/PhotoModal';
 
 const HSH = 'a3ae993f4c5d606782c9a5fefbb30982d039c4801860ba0971e12c385391153d';
 
@@ -72,86 +72,6 @@ export const Gate = () => {
   );
 };
 
-// — Grid modal —
-interface GridModalProps {
-  ids: string[];
-  activeIndex: number;
-  onClose: () => void;
-  onNavigate: (i: number) => void;
-}
-
-const GridModal = ({ ids, activeIndex, onClose, onNavigate }: GridModalProps) => {
-  const [leftVis, setLeftVis] = useState(true);
-  const [rightVis, setRightVis] = useState(true);
-
-  useState(() => {
-    const t1 = setTimeout(() => setLeftVis(false), 1500);
-    const t2 = setTimeout(() => setRightVis(false), 1500);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
-  });
-
-  const prev = () => onNavigate((activeIndex - 1 + ids.length) % ids.length);
-  const next = () => onNavigate((activeIndex + 1) % ids.length);
-
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-      else if (e.key === 'ArrowLeft') prev();
-      else if (e.key === 'ArrowRight') next();
-    };
-    document.addEventListener('keydown', handleKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', handleKey);
-      document.body.style.overflow = '';
-    };
-  }, [activeIndex]);
-
-  return (
-    <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      style={{ backgroundColor: 'rgba(0,0,0,0.88)', backdropFilter: 'blur(24px)' }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-      onClick={onClose}
-    >
-      <button onClick={onClose} className="absolute top-6 right-8 text-white hover:text-gray-300 z-10">
-        <XCircle className="w-8 h-8" />
-      </button>
-
-      <div className="absolute left-0 top-0 w-1/4 h-full z-10 flex items-center"
-        onMouseEnter={() => setLeftVis(true)} onMouseLeave={() => setLeftVis(false)}>
-        <motion.button onClick={e => { e.stopPropagation(); prev(); }}
-          className="ml-8 text-white" animate={{ opacity: leftVis ? 1 : 0 }} transition={{ duration: 0.25 }}>
-          <ChevronLeftCircle className="w-10 h-10" />
-        </motion.button>
-      </div>
-
-      <div className="absolute right-0 top-0 w-1/4 h-full z-10 flex items-center justify-end"
-        onMouseEnter={() => setRightVis(true)} onMouseLeave={() => setRightVis(false)}>
-        <motion.button onClick={e => { e.stopPropagation(); next(); }}
-          className="mr-8 text-white" animate={{ opacity: rightVis ? 1 : 0 }} transition={{ duration: 0.25 }}>
-          <ChevronRightCircle className="w-10 h-10" />
-        </motion.button>
-      </div>
-
-      <motion.div
-        key={activeIndex}
-        className="max-w-7xl max-h-[90vh] p-4"
-        initial={{ opacity: 0, scale: 0.96 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.96 }}
-        transition={{ duration: 0.25 }}
-        onClick={e => e.stopPropagation()}
-      >
-        <img src={getFullRes(ids[activeIndex])} alt="" className="max-w-full max-h-[85vh] object-contain" />
-      </motion.div>
-    </motion.div>
-  );
-};
-
 // — Album grid page —
 interface AlbumGridProps {
   ids: string[];
@@ -172,7 +92,7 @@ export const AlbumGrid = ({ ids, label }: AlbumGridProps) => {
               key={id}
               className="aspect-square overflow-hidden cursor-pointer"
               onClick={() => setModalIndex(i)}
-              onMouseEnter={() => { const img = new Image(); img.src = getFullRes(id); }}
+              onMouseEnter={() => { const img = new Image(); img.src = getFullRes(id).toURL(); }}
             >
               <img
                 src={getThumb(id)}
@@ -187,7 +107,7 @@ export const AlbumGrid = ({ ids, label }: AlbumGridProps) => {
 
       <AnimatePresence>
         {modalIndex !== null && (
-          <GridModal
+          <PhotoModal
             ids={ids}
             activeIndex={modalIndex}
             onClose={() => setModalIndex(null)}
