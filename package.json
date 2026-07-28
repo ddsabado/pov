@@ -1,9 +1,9 @@
 {
-  "name": "pov-portfolio",
+  "name": "pov",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://ddsabado.github.io/pov-portfolio",
+  "homepage": "https://ddsabado.github.io/pov",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

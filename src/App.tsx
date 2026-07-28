@@ -7,7 +7,7 @@ import Home from "./pages/Home";
 import Gear from "./pages/Gear";
 import About from "./pages/About";
 import Album from "./pages/Album";
-import Min24 from "./pages/Min24";
+import AlbumPage from "./pages/AlbumPage";
 import Navbar from "./components/Navbar";
 import { AuthProvider } from "./context/auth";
 
@@ -30,7 +30,7 @@ const Layout = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/gallery" element={<Home />} />
         <Route path="/album" element={<Album />} />
-        <Route path="/album/min24" element={<Min24 />} />
+        <Route path="/album/:slug" element={<AlbumPage />} />
         <Route path="/gear" element={<Gear />} />
         <Route path="/about" element={<About />} />
       </Routes>
@@ -41,7 +41,7 @@ const Layout = () => {
 const App = () => {
   return (
     <AuthProvider>
-      <BrowserRouter basename="/pov-portfolio">
+      <BrowserRouter basename="/pov">
         <Layout />
       </BrowserRouter>
     </AuthProvider>
