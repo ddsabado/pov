@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
 import { useAuth } from '../context/auth';
 import { cld, getFullRes } from '../data/photos';
 import { fill } from '@cloudinary/url-gen/actions/resize';
@@ -16,10 +17,7 @@ const digest = async (str: string): Promise<string> => {
 };
 
 const getThumb = (id: string) =>
-  cld.image(id).resize(fill().width(600)).delivery(quality(auto())).delivery(format(autoFormat())).toURL();
-
-const getFullRes = (id: string) =>
-  cld.image(id).resize(scale().width(2000)).delivery(quality(auto())).delivery(format(autoFormat())).toURL();
+  cld.image(id).resize(fill().width(600)).delivery(quality(auto())).delivery(format(autoFormat()));
 
 // — Gate —
 export const Gate = () => {
@@ -94,10 +92,10 @@ export const AlbumGrid = ({ ids, label }: AlbumGridProps) => {
               onClick={() => setModalIndex(i)}
               onMouseEnter={() => { const img = new Image(); img.src = getFullRes(id).toURL(); }}
             >
-              <img
-                src={getThumb(id)}
+              <AdvancedImage
+                cldImg={getThumb(id)}
+                plugins={[lazyload(), placeholder({ mode: 'blur' })]}
                 alt=""
-                loading="lazy"
                 className="w-full h-full object-cover hover:opacity-80 transition-opacity duration-200"
               />
             </div>
