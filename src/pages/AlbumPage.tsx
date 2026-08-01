@@ -40,6 +40,24 @@ const albums: Record<string, { label: string; ids: string[] }> = {
       'DSCF5823_ldmiat', 'DSCF6337_xcjn81', 'DSCF6517_ajpzwz', 'DSCF6587_eoxyq6',
     ],
   },
+  'tw25': {
+    label: "TW '25",
+    ids: [
+      'DSCF9754_h8q00y', 'DSCF9758_ugwrnu', 'DSCF9747_gsrgch', 'DSCF9805_zi2jce',
+      'DSCF9793_fbp0vh', 'DSCF9744_bbfpp0', 'DSCF9766_m56uus', 'DSCF9741_cp5fvj',
+      'DSCF9738_iksi5f', 'DSCF9725_foasfi', 'DSCF9718_ykjci4', 'DSCF9719_pxoztz',
+      'DSCF9714_gqsmyv', 'DSCF9710_qh8bzn', 'DSCF9706_qydakd', 'DSCF9701_yuaic5',
+      'DSCF9703_r6anl8', 'DSCF9698_nxu9r5', 'DSCF9694_rsetpv', 'DSCF9688_q9lqdf',
+      'DSCF9680_biwkrs', 'DSCF9675_pvhvjb', 'DSCF9676_neo4gh', 'DSCF9687_mag2qr',
+      'DSCF9666_ed2ki6', 'DSCF9668_uu5bff', 'DSCF9660_nrmiwt', 'DSCF9602_duqepb',
+      'DSCF9657_wbtta2', 'DSCF9651_kttmog', 'DSCF9655_ncyxua', 'DSCF9649_nxifxt',
+      'DSCF9629_gwfyxa', 'DSCF9617_ambvcb', 'DSCF9606_noezwh', 'DSCF9591_itbdxy',
+      'DSCF9573_e95hnz', 'DSCF9589_pvszxu', 'DSCF9576_lqkxp3', 'DSCF9535_vjmsxp',
+      'DSCF9526_x09ogg', 'DSCF9518_zixx8g', 'DSCF9512_nsn3g3', 'DSCF9501_xdteu1',
+      'DSCF9407_apdwwe', 'DSCF9417_hjhmbt', 'DSCF9421_wqaobh', 'DSCF9423_q8o1ap',
+      'DSCF9459_ixhnks', 'DSCF9448_nz4phj',
+    ],
+  },
 };
 
 const AlbumPage = () => {

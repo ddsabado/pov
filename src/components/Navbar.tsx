@@ -12,6 +12,7 @@ const tabs = [
 const travelItems = [
   { label: "MIN '24", path: '/album/min24' },
   { label: "TW '24", path: '/album/tw24' },
+  { label: "TW '25", path: '/album/tw25' },
 ];
 
 const Navbar = () => {
