@@ -40,6 +40,23 @@ const albums: Record<string, { label: string; ids: string[] }> = {
       'DSCF5823_ldmiat', 'DSCF6337_xcjn81', 'DSCF6517_ajpzwz', 'DSCF6587_eoxyq6',
     ],
   },
+  'bgio24': {
+    label: "BGIO '24",
+    ids: [
+      'DSCF7329_sttvna', 'DSCF7295_axx5gs', 'DSCF7333_f0rg5j', 'DSCF7317_bn4p4i',
+      'DSCF7328_kykuu1', 'DSCF7323_osy77c', 'DSCF7327_vlldei', 'DSCF7269_zfqitd',
+      'DSCF7207_ljqppv', 'DSCF7271_ahseoc', 'DSCF7242_gcj4aj', 'DSCF7266_lnqo8o',
+      'DSCF7297_bh9ahe', 'DSCF7245_dbvqam', 'DSCF7213_xse58h', 'DSCF7196_n7uaf2',
+      'DSCF7204_nvd0xg', 'DSCF7046_xitial', 'DSCF7187_saf0hc', 'DSCF7151_cancsm',
+      'DSCF7194_qrhszr', 'DSCF7048_mx1gqr', 'DSCF7067_k7t1pb', 'DSCF7049_lurds7',
+      'DSCF7040_vdmsiy', 'DSCF7039_mv7wgd', 'DSCF7026_dojr20', 'DSCF7009_oazvvc',
+      'DSCF6976_nkn3bb', 'DSCF6993_hntkvo', 'DSCF6992_ep5td2', 'DSCF6952_sef7ti',
+      'DSCF6911_nbcqox', 'DSCF6858_nirp6x', 'DSCF6970_quxd2g', 'DSCF6797_ehvwq3',
+      'DSCF6909_zofesr', 'DSCF6875_odtibr', 'DSCF6857_meeqd9', 'DSCF6795_hikdoz',
+      'DSCF6852_bvubmu', 'DSCF6740_emizsk', 'DSCF6751_mdr3yg', 'DSCF6846_lsbkcp',
+      'DSCF6770_eijskh', 'DSCF6781_ojrcur', 'DSCF6738_h78ri3', 'DSCF6829_zp4ebs',
+    ],
+  },
   'tw25': {
     label: "TW '25",
     ids: [
