@@ -41,7 +41,7 @@ const Layout = () => {
 const App = () => {
   return (
     <AuthProvider>
-      <BrowserRouter basename="/pov">
+      <BrowserRouter>
         <Layout />
       </BrowserRouter>
     </AuthProvider>

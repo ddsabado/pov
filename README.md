@@ -1,10 +1,6 @@
 # POV Portfolio
 
-A photography portfolio for DDWUMP (Dwight Sabado) — built with React, Vite, TypeScript, and Tailwind CSS. Images hosted on Cloudinary. Deployed to GitHub Pages.
-
-## Live Site
-
-[https://ddsabado.github.io/pov-portfolio](https://ddsabado.github.io/pov-portfolio)
+A photography portfolio for DDWUMP (Dwight Sabado) — built with React, Vite, TypeScript, and Tailwind CSS. Images are hosted on Cloudinary and the app is deployed on Vercel.
 
 ## Tech Stack
 
@@ -16,7 +12,7 @@ A photography portfolio for DDWUMP (Dwight Sabado) — built with React, Vite, T
 | Icons | Lucide React |
 | Image hosting | Cloudinary SDK |
 | Fonts | Inter + IBM Plex Mono (Google Fonts) |
-| Deployment | GitHub Pages |
+| Deployment | Vercel |
 
 ## Pages
 
@@ -76,14 +72,15 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:5173/pov-portfolio](http://localhost:5173/pov-portfolio)
+Open [http://localhost:5173](http://localhost:5173)
 
 ## Build & Deploy
 
 ```bash
 npm run build    # production build
-npm run deploy   # deploy to GitHub Pages
 ```
+
+Vercel detects Vite, builds the `dist` directory, and uses `vercel.json` to rewrite deep links to `index.html` so client-side routes remain accessible on refresh.
 
 ## Design System
 
