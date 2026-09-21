@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
 import { useAuth } from '../context/auth';
@@ -8,6 +8,7 @@ import { quality, format } from '@cloudinary/url-gen/actions/delivery';
 import { auto } from '@cloudinary/url-gen/qualifiers/quality';
 import { auto as autoFormat } from '@cloudinary/url-gen/qualifiers/format';
 import PhotoModal from '../components/PhotoModal';
+import { prefetchImage, prefetchImagesInOrder } from '../utils/imagePrefetch';
 
 const HSH = 'a3ae993f4c5d606782c9a5fefbb30982d039c4801860ba0971e12c385391153d';
 
@@ -79,6 +80,8 @@ interface AlbumGridProps {
 export const AlbumGrid = ({ ids, label }: AlbumGridProps) => {
   const [modalIndex, setModalIndex] = useState<number | null>(null);
 
+  useEffect(() => prefetchImagesInOrder(ids.map(id => getFullRes(id).toURL())), [ids]);
+
   return (
     <motion.div className="min-h-screen bg-black text-white" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
       <div className="h-14" />
@@ -86,11 +89,15 @@ export const AlbumGrid = ({ ids, label }: AlbumGridProps) => {
         <p className="font-meta text-gray-600 text-[11px] tracking-[0.2em] uppercase mb-12">{label}</p>
         <div className="grid grid-cols-3 gap-1">
           {ids.map((id, i) => (
-            <div
+            <button
+              type="button"
               key={id}
-              className="aspect-square overflow-hidden cursor-pointer"
+              className="aspect-square overflow-hidden cursor-pointer appearance-none border-0 bg-transparent p-0 text-left"
               onClick={() => setModalIndex(i)}
-              onMouseEnter={() => { const img = new Image(); img.src = getFullRes(id).toURL(); }}
+              onFocus={() => { prefetchImage(getFullRes(id).toURL()); }}
+              onPointerEnter={() => { prefetchImage(getFullRes(id).toURL()); }}
+              onPointerDown={() => { prefetchImage(getFullRes(id).toURL()); }}
+              aria-label={`View ${id.split('_')[0]}`}
             >
               <AdvancedImage
                 cldImg={getThumb(id)}
@@ -98,7 +105,7 @@ export const AlbumGrid = ({ ids, label }: AlbumGridProps) => {
                 alt=""
                 className="w-full h-full object-cover hover:opacity-80 transition-opacity duration-200"
               />
-            </div>
+            </button>
           ))}
         </div>
       </div>

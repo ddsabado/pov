@@ -6,6 +6,7 @@ import { scale } from '@cloudinary/url-gen/actions/resize';
 import { quality, format } from '@cloudinary/url-gen/actions/delivery';
 import { auto } from '@cloudinary/url-gen/qualifiers/quality';
 import { auto as autoFormat } from '@cloudinary/url-gen/qualifiers/format';
+import { prefetchImage } from '../utils/imagePrefetch';
 
 const landingPhotos = [
   'DSCF2327_syg04w',
@@ -50,13 +51,11 @@ const Landing = () => {
     navigate('/gallery');
   }, [navigate, exiting]);
 
-  // Preload all landing images on mount
+  // Keep the visible slide browser-loaded, then warm only its immediate successor.
   useEffect(() => {
-    shuffledPhotos.forEach(id => {
-      const img = new Image();
-      img.src = getUrl(id);
-    });
-  }, []);
+    const nextIndex = (index + 1) % shuffledPhotos.length;
+    prefetchImage(getUrl(shuffledPhotos[nextIndex]));
+  }, [index]);
 
   // Disable scrolling
   useEffect(() => {
