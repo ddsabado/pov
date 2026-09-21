@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-22T00:00:00+08:00",
+  "title": "Design System: DDWUMP",
+  "extensions": {
+    "colorMeta": {
+      "black": { "role": "neutral", "displayName": "Midnight Ground", "canonical": "#000000", "tonalRamp": ["#000000", "#121212", "#252525", "#3b3b3b", "#555555", "#737373", "#a3a3a3", "#f5f5f5"] },
+      "white": { "role": "primary", "displayName": "Notebook White", "canonical": "#ffffff", "tonalRamp": ["#151515", "#303030", "#505050", "#747474", "#9d9d9d", "#c4c4c4", "#e4e4e4", "#ffffff"] },
+      "gray-400": { "role": "neutral", "displayName": "Silver Annotation", "canonical": "#9ca3af", "tonalRamp": ["#1f242b", "#333a44", "#4b5563", "#6b7280", "#9ca3af", "#b9c0c9", "#d1d5db", "#f3f4f6"] },
+      "rust": { "role": "secondary", "displayName": "Weathered Rust", "canonical": "#BF5A36", "tonalRamp": ["#35120a", "#572313", "#7b361e", "#9d4829", "#bf5a36", "#d9825c", "#edb49c", "#f9e5d9"] },
+      "sage": { "role": "tertiary", "displayName": "Faded Sage", "canonical": "#A1B5A1", "tonalRamp": ["#172117", "#2c3b2c", "#455845", "#647a64", "#a1b5a1", "#bdcdbd", "#d8e3d8", "#f0f5f0"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Direct Display", "purpose": "Names and high-emphasis titles." },
+      "body": { "displayName": "Quiet Body", "purpose": "Short descriptions and reading copy." },
+      "meta": { "displayName": "Field Annotation", "purpose": "Archive labels, specifications, and subdued context." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "photo-entrance", "value": "spring: stiffness 120, damping 16, mass 1", "purpose": "Gallery images rise 48px and scale from 0.93 on entry." },
+      { "name": "dial-navigation", "value": "spring: stiffness 160, damping 28, mass 1", "purpose": "Gear wheel rotation and equipment counter-rotation." },
+      { "name": "quiet-fade", "value": "0.2–0.8s easeInOut", "purpose": "Page, control, and overlay transitions." }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Landing Action",
+      "kind": "button",
+      "refersTo": "button-landing",
+      "description": "The only prominent landing control; it enters the portfolio without competing with the image.",
+      "html": "<button class=\"ds-landing-action\">View</button>",
+      "css": ".ds-landing-action { background: transparent; border: 2px solid rgba(255,255,255,.6); color: #fff; cursor: pointer; font: 500 13px Inter, system-ui, sans-serif; letter-spacing: .3em; padding: 12px 40px; text-transform: uppercase; transition: border-color .2s, background-color .2s, transform .2s; } .ds-landing-action:hover { background: rgba(255,255,255,.08); border-color: #fff; transform: scale(1.03); } .ds-landing-action:focus-visible { outline: 2px solid #fff; outline-offset: 4px; } .ds-landing-action:active { background: rgba(255,255,255,.15); transform: scale(.96); }"
+    },
+    {
+      "name": "Navigation Tab",
+      "kind": "nav",
+      "refersTo": "nav-active",
+      "description": "A lightweight navigation destination with a tactile translucent active state.",
+      "html": "<nav class=\"ds-nav\"><button class=\"ds-nav-tab ds-nav-tab-active\" aria-current=\"page\">Scroll Gallery</button><button class=\"ds-nav-tab\">Gear</button></nav>",
+      "css": ".ds-nav { align-items: center; background: #000; display: flex; gap: 4px; padding: 8px; } .ds-nav-tab { background: transparent; border: 0; border-radius: 6px; color: #9ca3af; cursor: pointer; font: 300 14px Inter, system-ui, sans-serif; padding: 6px 12px; transition: background-color .2s, color .2s, transform .15s; } .ds-nav-tab:hover { color: #fff; } .ds-nav-tab:focus-visible { outline: 2px solid #fff; outline-offset: 2px; } .ds-nav-tab:active { transform: scale(.95); } .ds-nav-tab-active { background: rgba(255,255,255,.1); color: #fff; }"
+    },
+    {
+      "name": "Album Gate Field",
+      "kind": "input",
+      "description": "A single-line private album entry field with intentionally minimal framing.",
+      "html": "<label class=\"ds-gate\"><span class=\"ds-sr-only\">Album password</span><input class=\"ds-gate-input\" type=\"password\" placeholder=\"••••••••\"></label>",
+      "css": ".ds-gate { background: #000; display: inline-block; } .ds-sr-only { clip: rect(0,0,0,0); clip-path: inset(50%); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px; } .ds-gate-input { background: transparent; border: 0; border-bottom: 1px solid #374151; color: #fff; font: 400 14px Inter, system-ui, sans-serif; outline: none; padding: 4px 8px; text-align: center; transition: border-color .2s; width: 192px; } .ds-gate-input::placeholder { color: #9ca3af; } .ds-gate-input:focus { border-color: #fff; } .ds-gate-input:focus-visible { outline: 2px solid rgba(255,255,255,.55); outline-offset: 4px; }"
+    },
+    {
+      "name": "Archive Label",
+      "kind": "custom",
+      "description": "Compact monospaced metadata used for album identifiers and quiet labels.",
+      "html": "<p class=\"ds-archive-label\">TW '25</p>",
+      "css": ".ds-archive-label { color: #4b5563; font: 400 11px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .2em; margin: 0; text-transform: uppercase; }"
+    },
+    {
+      "name": "Gear Specification",
+      "kind": "custom",
+      "description": "A factual equipment detail marked by a quiet circular bullet.",
+      "html": "<li class=\"ds-gear-spec\"><span class=\"ds-gear-dot\"></span>23mm f/2 fixed lens</li>",
+      "css": ".ds-gear-spec { align-items: center; color: #9ca3af; display: flex; font: 400 13px 'IBM Plex Mono', ui-monospace, monospace; gap: 8px; list-style: none; } .ds-gear-dot { background: #4b5563; border-radius: 50%; display: inline-block; height: 4px; width: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Midnight Field Notebook",
+    "overview": "DDWUMP is a raw, documentary-minded photography archive experienced in low light. The interface is intentionally recessive: near-black planes let photographs establish the changing color world, while compact text, navigation, and controls feel like the quiet annotations of a personal notebook. The system is minimal without becoming sterile. Inter carries direct, unornamented reading; IBM Plex Mono marks metadata, labels, specifications, and archive context. Interaction has a quietly tactile quality through restrained opacity shifts, translucent active surfaces, and spring movement—never ornamental spectacle competing with an image.",
+    "keyCharacteristics": ["Image-first, full-bleed and asymmetric photographic composition.", "Raw/documentary voice with brief, factual interface language.", "Black ground and translucent layers rather than opaque card-heavy UI.", "Small monospaced metadata as a consistent archival signature.", "Soft spring motion that makes navigation and image sequences feel handled, not animated for its own sake."],
+    "rules": [
+      { "name": "The Photograph Leads Rule", "body": "Interface color must stay subordinate to the work. Introduce a non-neutral theme color only through a deliberately defined role; do not scatter accents across controls or captions.", "section": "colors" },
+      { "name": "The Annotation Rule", "body": "Mono type is for context, not emphasis: keep it small, tracked, and quiet; use Inter for titles and language a visitor must read first.", "section": "typography" },
+      { "name": "The Translucent Layer Rule", "body": "When a control needs separation, prefer a low-opacity light layer, soft blur, or restrained border over a filled card or pronounced shadow.", "section": "elevation" }
+    ],
+    "dos": ["Do make the photograph the primary color, texture, and subject of every image-led surface.", "Do use black planes, low-contrast gray annotation, and translucent layers to keep controls receded.", "Do reserve IBM Plex Mono for small archival context, specifications, labels, and timestamps.", "Do retain varied gallery geometry and generous separation between photo groups.", "Do use spring motion for spatial movement and short opacity transitions for quiet feedback."],
+    "donts": ["Don't turn the gallery into a uniform card grid or add decorative frames around photographs.", "Don't use heavy shadows, bright persistent UI fills, or dense panel stacks to create hierarchy.", "Don't introduce accent colors casually; any future palette expansion needs a named, constrained role.", "Don't make controls louder than the images they operate on."]
+  }
+}

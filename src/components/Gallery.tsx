@@ -86,8 +86,8 @@ const Gallery = () => {
 
   const renderGroup = (group: typeof photoGroups[number], groupIndex: number) => {
     const { photos } = group;
-    const leftOffset = groupIndex % 2 === 0 ? '' : 'mt-16';
-    const rightOffset = groupIndex % 2 === 0 ? 'mt-16' : '';
+    const leftOffset = groupIndex % 2 === 0 ? '' : 'mt-10 md:mt-16';
+    const rightOffset = groupIndex % 2 === 0 ? 'mt-10 md:mt-16' : '';
 
     // staggered: each photo alternates left/right margin, stacked vertically
     if (group.layout === 'staggered') {
@@ -309,7 +309,7 @@ const Gallery = () => {
       return (
         <div className="flex flex-col gap-4">
           {landscapePhotos.map((photo, i) => (
-            <div key={photo.id} className={i % 2 === 0 ? 'mr-16' : 'ml-16'}>
+            <div key={photo.id} className={i % 2 === 0 ? 'mr-8 sm:mr-12 md:mr-16' : 'ml-8 sm:ml-12 md:ml-16'}>
               {card(photo)}
             </div>
           ))}
@@ -328,19 +328,30 @@ const Gallery = () => {
   return (
     <section id="gallery" className="bg-black pb-24" style={{ scrollMarginTop: '80px' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {photoGroups.map((group, groupIndex) => (
-          <motion.div
-            key={group.name}
-            className="mb-24"
-            variants={groupVariants}
-            initial="hidden"
-            whileInView="visible"
-            exit="hidden"
-            viewport={{ once: false, amount: 0.05 }}
-          >
-            {renderGroup(group, groupIndex)}
-          </motion.div>
-        ))}
+        {photoGroups.map((group, groupIndex) => {
+          const flowAnchor = groupIndex % 2 === 0 ? 'md:left-[62%]' : 'md:left-[38%]';
+          const hasFollowingGroup = groupIndex < photoGroups.length - 1;
+
+          return (
+            <motion.div
+              key={group.name}
+              className="relative pb-14 sm:pb-[4.5rem] md:pb-24 last:pb-0"
+              variants={groupVariants}
+              initial="hidden"
+              whileInView="visible"
+              exit="hidden"
+              viewport={{ once: false, amount: 0.05 }}
+            >
+              {renderGroup(group, groupIndex)}
+              {hasFollowingGroup && (
+                <span
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute bottom-0 left-1/2 h-9 w-px -translate-x-1/2 bg-gradient-to-b from-white/20 via-white/10 to-transparent sm:h-11 md:h-12 ${flowAnchor}`}
+                />
+              )}
+            </motion.div>
+          );
+        })}
       </div>
 
       <AnimatePresence>
