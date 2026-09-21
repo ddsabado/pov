@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence, stagger } from 'motion/react';
 import { AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
 import { photoGroups, getThumbnail, getFullRes, Photo } from '../data/photos';
 import PhotoModal from './PhotoModal';
+import { prefetchImage, prefetchImagesInOrder } from '../utils/imagePrefetch';
 
 // Parent group — triggers stagger when it enters viewport
 const groupVariants = {
@@ -37,17 +38,21 @@ const photoVariants = {
 const PhotoCard = ({
   photo,
   onClick,
-  onMouseEnter,
+  onIntent,
 }: {
   photo: Photo;
   onClick: () => void;
-  onMouseEnter: () => void;
+  onIntent: () => void;
 }) => (
-  <motion.div
+  <motion.button
+    type="button"
     variants={photoVariants}
     onClick={onClick}
-    onMouseEnter={onMouseEnter}
-    className="cursor-pointer overflow-hidden w-full h-full"
+    onFocus={onIntent}
+    onPointerEnter={onIntent}
+    onPointerDown={onIntent}
+    className="cursor-pointer overflow-hidden w-full h-full appearance-none border-0 bg-transparent p-0 text-left"
+    aria-label={`View ${photo.publicId.split('_')[0]}`}
     whileHover={{ opacity: 0.9, transition: { duration: 0.2 } }}
   >
     <AdvancedImage
@@ -56,7 +61,7 @@ const PhotoCard = ({
       alt={photo.publicId.split('_')[0]}
       className="w-full h-full object-cover"
     />
-  </motion.div>
+  </motion.button>
 );
 
 const Gallery = () => {
@@ -64,10 +69,9 @@ const Gallery = () => {
   const allIds = allPhotos.map(p => p.publicId);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const prefetchFullRes = (publicId: string) => {
-    const img = new Image();
-    img.src = getFullRes(publicId).toURL();
-  };
+  useEffect(() => prefetchImagesInOrder(allPhotos.map(photo => getFullRes(photo.publicId).toURL())), []);
+
+  const prefetchFullRes = (publicId: string) => prefetchImage(getFullRes(publicId).toURL());
 
   const openPhoto = (photo: Photo) => setActiveIndex(allIds.indexOf(photo.publicId));
 
@@ -76,7 +80,7 @@ const Gallery = () => {
       key={photo.id}
       photo={photo}
       onClick={() => openPhoto(photo)}
-      onMouseEnter={() => prefetchFullRes(photo.publicId)}
+      onIntent={() => { prefetchFullRes(photo.publicId); }}
     />
   );
 
