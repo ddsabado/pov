@@ -1,9 +1,22 @@
 import { memo, useCallback, useRef, useState } from 'react';
 import { motion, stagger } from 'motion/react';
-import { AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
-import { photoGroups, getThumbnail, getFullRes, Photo } from '../data/photos';
+import { photoGroups, getThumbnail, Photo } from '../data/photos';
 import PhotoModal from './PhotoModal';
-import { prefetchImage } from '../utils/imagePrefetch';
+
+interface PhotoPosition {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+}
+
+interface ActivePhoto {
+  id: string;
+  thumbnailUrl: string;
+  position: PhotoPosition;
+  naturalWidth: number;
+  naturalHeight: number;
+}
 
 // Parent group — triggers stagger when it enters viewport
 const groupVariants = {
@@ -35,109 +48,84 @@ const photoVariants = {
   },
 };
 
-const galleryPhotos = photoGroups.flatMap(group => group.photos);
-
-interface PhotoOrigin {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
-interface ActivePhoto {
-  id: string;
-  origin: PhotoOrigin;
-  naturalWidth: number;
-  naturalHeight: number;
-}
-
 const PhotoCard = memo(({
   photo,
   onOpen,
-  onIntent,
   isHidden,
 }: {
   photo: Photo;
-  onOpen: (photo: Photo, origin: PhotoOrigin) => void;
-  onIntent: (publicId: string) => void;
+  onOpen: (photo: Photo, position: PhotoPosition, naturalWidth: number, naturalHeight: number) => void;
   isHidden: boolean;
-}) => (
+}) => {
+  const thumbnailUrl = getThumbnail(photo.publicId).toURL();
+
+  return (
   <motion.button
     type="button"
     variants={photoVariants}
     onClick={event => {
+      const image = event.currentTarget.querySelector('img');
       const rect = event.currentTarget.getBoundingClientRect();
-      onOpen(photo, { x: rect.x, y: rect.y, width: rect.width, height: rect.height });
+
+      onOpen(
+        photo,
+        { left: rect.left, top: rect.top, width: rect.width, height: rect.height },
+        image?.naturalWidth || rect.width,
+        image?.naturalHeight || rect.height,
+      );
     }}
-    onFocus={() => onIntent(photo.publicId)}
-    onPointerEnter={() => onIntent(photo.publicId)}
-    onPointerDown={() => onIntent(photo.publicId)}
     className="cursor-pointer overflow-hidden w-full h-full appearance-none border-0 bg-transparent p-0 text-left"
-    style={{ visibility: isHidden ? 'hidden' : 'visible' }}
     aria-label={`View ${photo.publicId.split('_')[0]}`}
     whileHover={{ opacity: 0.9, transition: { duration: 0.2 } }}
   >
-    <div className="h-full w-full">
-      <AdvancedImage
-        cldImg={getThumbnail(photo.publicId)}
-        plugins={[lazyload(), placeholder({ mode: 'blur' })]}
-        alt={photo.publicId.split('_')[0]}
-        className="w-full h-full object-cover"
-      />
-    </div>
+    <img
+      src={thumbnailUrl}
+      alt={photo.publicId.split('_')[0]}
+      loading="lazy"
+      decoding="async"
+      className={`h-full w-full object-cover ${isHidden ? 'invisible' : ''}`}
+    />
   </motion.button>
-));
+  );
+});
 
 PhotoCard.displayName = 'PhotoCard';
 
 const Gallery = () => {
   const [activePhoto, setActivePhoto] = useState<ActivePhoto | null>(null);
   const [hiddenPhotoId, setHiddenPhotoId] = useState<string | null>(null);
-  const [isClosingPhoto, setIsClosingPhoto] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const openingPhotoId = useRef<string | null>(null);
 
-  const prefetchFullRes = useCallback(
-    (publicId: string) => prefetchImage(getFullRes(publicId).toURL()),
-    [],
-  );
-
-  const openPhoto = useCallback((photo: Photo, origin: PhotoOrigin) => {
+  const openPhoto = useCallback((
+    photo: Photo,
+    position: PhotoPosition,
+    naturalWidth: number,
+    naturalHeight: number,
+  ) => {
     if (openingPhotoId.current) return;
 
     openingPhotoId.current = photo.publicId;
-    const fullImage = new Image();
-    let settled = false;
-    const finish = () => {
-      if (settled) return;
-      settled = true;
-      openingPhotoId.current = null;
-      setHiddenPhotoId(photo.publicId);
-      setIsClosingPhoto(false);
-      setActivePhoto({
-        id: photo.publicId,
-        origin,
-        naturalWidth: fullImage.naturalWidth || origin.width,
-        naturalHeight: fullImage.naturalHeight || origin.height,
-      });
-    };
-
-    // The modal only mounts once its final image is decoded. This prevents a late
-    // full-resolution swap from interrupting the shared-element transform.
-    fullImage.decoding = 'async';
-    fullImage.onload = finish;
-    fullImage.onerror = finish;
-    fullImage.src = getFullRes(photo.publicId).toURL();
-    fullImage.decode?.().then(finish).catch(() => undefined);
+    setHiddenPhotoId(photo.publicId);
+    setActivePhoto({
+      id: photo.publicId,
+      thumbnailUrl: getThumbnail(photo.publicId).toURL(),
+      position,
+      naturalWidth,
+      naturalHeight,
+    });
   }, []);
 
   const closePhoto = useCallback(() => {
-    if (activePhoto && !isClosingPhoto) setIsClosingPhoto(true);
-  }, [activePhoto, isClosingPhoto]);
+    if (!activePhoto || isClosing) return;
+    setIsClosing(true);
+  }, [activePhoto, isClosing]);
 
-  const finishClosingPhoto = useCallback(() => {
+  const finishClose = useCallback(() => {
     setActivePhoto(null);
     setHiddenPhotoId(null);
-    setIsClosingPhoto(false);
+    setIsClosing(false);
+    openingPhotoId.current = null;
   }, []);
 
   const card = (photo: Photo) => (
@@ -145,7 +133,6 @@ const Gallery = () => {
       key={photo.id}
       photo={photo}
       onOpen={openPhoto}
-      onIntent={prefetchFullRes}
       isHidden={hiddenPhotoId === photo.publicId}
     />
   );
@@ -422,13 +409,10 @@ const Gallery = () => {
 
       {activePhoto && (
         <PhotoModal
-          id={activePhoto.id}
-          origin={activePhoto.origin}
-          naturalWidth={activePhoto.naturalWidth}
-          naturalHeight={activePhoto.naturalHeight}
-          isClosing={isClosingPhoto}
+          photo={activePhoto}
+          isClosing={isClosing}
           onClose={closePhoto}
-          onReturnComplete={finishClosingPhoto}
+          onExitComplete={finishClose}
         />
       )}
     </section>
