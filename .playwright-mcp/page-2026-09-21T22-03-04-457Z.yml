@@ -1,0 +1,195 @@
+- generic [ref=e2]:
+  - navigation [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6] [cursor=pointer]: DDWUMP
+      - tablist [ref=e7]:
+        - tab "Scroll Gallery" [selected] [ref=e8] [cursor=pointer]
+        - tab "Gear" [ref=e10] [cursor=pointer]
+        - tab "About" [ref=e11] [cursor=pointer]
+  - generic [ref=e12]:
+    - generic [ref=e15]:
+      - generic [ref=e17]:
+        - generic [ref=e18]:
+          - button "View DSCF6636" [ref=e19] [cursor=pointer]:
+            - img "DSCF6636" [ref=e21]
+          - button "View DSCF0359" [ref=e22] [cursor=pointer]:
+            - img "DSCF0359" [ref=e24]
+        - generic [ref=e25]:
+          - button "View DSCF0463" [ref=e26] [cursor=pointer]:
+            - img "DSCF0463" [ref=e28]
+          - button "View DSCF1112" [ref=e29] [cursor=pointer]:
+            - img "DSCF1112" [ref=e31]
+      - generic [ref=e33]:
+        - button "View DSCF7674" [ref=e35] [cursor=pointer]:
+          - img "DSCF7674" [ref=e37]
+        - button "View DSCF3080" [ref=e39] [cursor=pointer]:
+          - img "DSCF3080" [ref=e41]
+        - button "View DSCF2070" [ref=e43] [cursor=pointer]:
+          - img "DSCF2070" [ref=e45]
+        - button "View DSCF2026" [ref=e47] [cursor=pointer]:
+          - img "DSCF2026" [ref=e49]
+      - generic [ref=e51]:
+        - button "View DSCF2747" [ref=e53] [cursor=pointer]:
+          - img "DSCF2747" [ref=e55]
+        - button "View DSCF1114" [ref=e57] [cursor=pointer]:
+          - img "DSCF1114" [ref=e59]
+        - button "View imgonline-com-ua-CompressToSize-9ZpzXtucIu" [ref=e61] [cursor=pointer]:
+          - img "imgonline-com-ua-CompressToSize-9ZpzXtucIu" [ref=e63]
+        - button "View DSCF1730-2" [ref=e65] [cursor=pointer]:
+          - img "DSCF1730-2" [ref=e67]
+      - generic [ref=e69]:
+        - button "View DSCF3071" [ref=e71] [cursor=pointer]:
+          - img "DSCF3071" [ref=e73]
+        - button "View DSCF0350" [ref=e75] [cursor=pointer]:
+          - img "DSCF0350" [ref=e77]
+        - button "View DSCF1619" [ref=e79] [cursor=pointer]:
+          - img "DSCF1619" [ref=e81]
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - button "View photo3" [ref=e86] [cursor=pointer]:
+            - img "photo3" [ref=e88]
+          - button "View photo2" [ref=e90] [cursor=pointer]:
+            - img "photo2" [ref=e92]
+        - button "View photo4" [ref=e95] [cursor=pointer]:
+          - img "photo4" [ref=e97]
+      - generic [ref=e99]:
+        - button "View photo1" [ref=e101] [cursor=pointer]:
+          - img "photo1" [ref=e103]
+        - generic [ref=e104]:
+          - button "View photo8" [ref=e105] [cursor=pointer]:
+            - img "photo8" [ref=e107]
+          - button "View photo9" [ref=e108] [cursor=pointer]:
+            - img "photo9" [ref=e110]
+      - generic [ref=e112]:
+        - button "View photo14" [ref=e114] [cursor=pointer]:
+          - img "photo14" [ref=e116]
+        - button "View photo7" [ref=e118] [cursor=pointer]:
+          - img "photo7" [ref=e120]
+      - generic [ref=e122]:
+        - button "View photo21" [ref=e125] [cursor=pointer]:
+          - img "photo21" [ref=e127]
+        - generic [ref=e128]:
+          - button "View photo19" [ref=e130] [cursor=pointer]:
+            - img "photo19" [ref=e132]
+          - button "View photo27" [ref=e134] [cursor=pointer]:
+            - img "photo27" [ref=e136]
+      - generic [ref=e138]:
+        - button "View photo33" [ref=e140] [cursor=pointer]:
+          - img "photo33" [ref=e142]
+        - button "View photo35" [ref=e144] [cursor=pointer]:
+          - img "photo35" [ref=e146]
+        - button "View photo29" [ref=e148] [cursor=pointer]:
+          - img "photo29" [ref=e150]
+      - generic [ref=e152]:
+        - button "View photo22" [ref=e154] [cursor=pointer]:
+          - img "photo22" [ref=e156]
+        - button "View photo28" [ref=e158] [cursor=pointer]:
+          - img "photo28" [ref=e160]
+      - generic [ref=e162]:
+        - button "View photo16" [ref=e164] [cursor=pointer]:
+          - img "photo16" [ref=e166]
+        - button "View photo15" [ref=e168] [cursor=pointer]:
+          - img "photo15" [ref=e170]
+        - button "View photo13" [ref=e172] [cursor=pointer]:
+          - img "photo13" [ref=e174]
+      - generic [ref=e176]:
+        - button "View photo18" [ref=e178] [cursor=pointer]:
+          - img "photo18" [ref=e180]
+        - button "View photo10" [ref=e182] [cursor=pointer]:
+          - img "photo10" [ref=e184]
+        - button "View photo23" [ref=e186] [cursor=pointer]:
+          - img "photo23" [ref=e188]
+        - button "View photo25" [ref=e190] [cursor=pointer]:
+          - img "photo25" [ref=e192]
+        - button "View photo40" [ref=e194] [cursor=pointer]:
+          - img "photo40" [ref=e196]
+      - generic [ref=e198]:
+        - button "View photo6" [ref=e201] [cursor=pointer]:
+          - img "photo6" [ref=e203]
+        - generic [ref=e204]:
+          - button "View photo12" [ref=e206] [cursor=pointer]:
+            - img "photo12" [ref=e208]
+          - button "View photo5" [ref=e210] [cursor=pointer]:
+            - img "photo5" [ref=e212]
+      - generic [ref=e214]:
+        - button "View photo26" [ref=e216] [cursor=pointer]:
+          - img "photo26" [ref=e218]
+        - button "View photo30" [ref=e220] [cursor=pointer]:
+          - img "photo30" [ref=e222]
+      - generic [ref=e224]:
+        - button "View photo31" [ref=e226] [cursor=pointer]:
+          - img "photo31" [ref=e228]
+        - button "View photo37" [ref=e230] [cursor=pointer]:
+          - img "photo37" [ref=e232]
+        - button "View photo43" [ref=e234] [cursor=pointer]:
+          - img "photo43" [ref=e236]
+        - button "View photo32" [ref=e238] [cursor=pointer]:
+          - img "photo32" [ref=e240]
+      - generic [ref=e242]:
+        - button "View photo39" [ref=e244] [cursor=pointer]:
+          - img "photo39" [ref=e246]
+        - button "View photo36" [ref=e248] [cursor=pointer]:
+          - img "photo36" [ref=e250]
+        - button "View photo38" [ref=e252] [cursor=pointer]:
+          - img "photo38" [ref=e254]
+      - generic [ref=e256]:
+        - generic [ref=e257]:
+          - button "View DSCF2327" [ref=e258] [cursor=pointer]:
+            - img "DSCF2327" [ref=e260]
+          - button "View DSCF5823" [ref=e261] [cursor=pointer]:
+            - img "DSCF5823" [ref=e263]
+        - button "View DSCF1107" [ref=e265] [cursor=pointer]:
+          - img "DSCF1107" [ref=e267]
+      - generic [ref=e269]:
+        - button "View DSCF2312" [ref=e272] [cursor=pointer]:
+          - img "DSCF2312" [ref=e274]
+        - generic [ref=e275]:
+          - button "View DSCF1309" [ref=e277] [cursor=pointer]:
+            - img "DSCF1309" [ref=e279]
+          - button "View fqs" [ref=e281] [cursor=pointer]:
+            - img "fqs" [ref=e283]
+      - generic [ref=e285]:
+        - generic [ref=e286]:
+          - button "View DSCF6667" [ref=e288] [cursor=pointer]:
+            - img "DSCF6667" [ref=e290]
+          - button "View DSCF6659" [ref=e292] [cursor=pointer]:
+            - img "DSCF6659" [ref=e294]
+        - button "View DSCF6712" [ref=e297] [cursor=pointer]:
+          - img "DSCF6712" [ref=e299]
+        - button "View DSCF6670" [ref=e302] [cursor=pointer]:
+          - img "DSCF6670" [ref=e304]
+      - generic [ref=e306]:
+        - button "View DSCF6711" [ref=e308] [cursor=pointer]:
+          - img "DSCF6711" [ref=e310]
+        - button "View DSCF6627" [ref=e312] [cursor=pointer]:
+          - img "DSCF6627" [ref=e314]
+        - button "View DSCF6622" [ref=e316] [cursor=pointer]:
+          - img "DSCF6622" [ref=e318]
+        - button "View DSCF6683" [ref=e320] [cursor=pointer]:
+          - img "DSCF6683" [ref=e322]
+      - generic [ref=e324]:
+        - button "View DSCF7685" [ref=e326] [cursor=pointer]:
+          - img "DSCF7685" [ref=e328]
+        - button "View DSCF7678" [ref=e330] [cursor=pointer]:
+          - img "DSCF7678" [ref=e332]
+        - button "View DSCF7720" [ref=e334] [cursor=pointer]:
+          - img "DSCF7720" [ref=e336]
+      - generic [ref=e338]:
+        - button "View DSCF7310" [ref=e341] [cursor=pointer]:
+          - img "DSCF7310" [ref=e343]
+        - generic [ref=e344]:
+          - button "View DSCF7287" [ref=e346] [cursor=pointer]:
+            - img "DSCF7287" [ref=e348]
+          - button "View DSCF7341" [ref=e350] [cursor=pointer]:
+            - img "DSCF7341" [ref=e352]
+          - button "View DSCF7309" [ref=e354] [cursor=pointer]:
+            - img "DSCF7309" [ref=e356]
+      - generic [ref=e358]:
+        - button "View DSCF7565" [ref=e360] [cursor=pointer]:
+          - img "DSCF7565" [ref=e362]
+        - button "View DSCF7697" [ref=e364] [cursor=pointer]:
+          - img "DSCF7697" [ref=e366]
+        - button "View DSCF7710" [ref=e368] [cursor=pointer]:
+          - img "DSCF7710" [ref=e370]
+    - contentinfo [ref=e371]:
+      - paragraph [ref=e372]: © 2026 Dwight Sabado. All rights reserved.
