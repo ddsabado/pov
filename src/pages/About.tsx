@@ -20,7 +20,7 @@ const About = () => {
       <section className="flex-1 py-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
-            className="text-[28px] md:text-[34px] font-semibold leading-[1.2] mb-8 text-white"
+            className="font-display text-4xl font-medium leading-none tracking-[-0.03em] mb-8 text-white md:text-5xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.1 }}
@@ -56,7 +56,7 @@ const About = () => {
       </section>
 
       <footer className="bg-black py-8 text-center">
-        <p className="text-gray-600 text-[12px] font-meta tracking-[0.14em]">
+        <p className="font-meta text-[11px] font-medium tracking-[0.12em] text-gray-600 sm:text-xs sm:tracking-[0.14em]">
           © 2026 Dwight Sabado. All rights reserved.
         </p>
       </footer>

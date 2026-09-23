@@ -13,8 +13,8 @@ const Home = () => {
 
       <Gallery />
 
-      <footer className="bg-black py-8 text-center">
-        <p className="text-gray-600 text-[12px] font-meta tracking-[0.14em]">
+      <footer className="bg-black px-5 py-7 text-center sm:py-8">
+        <p className="font-meta text-[11px] font-medium leading-relaxed tracking-[0.12em] text-gray-600 sm:text-xs sm:tracking-[0.14em]">
           © 2026 Dwight Sabado. All rights reserved.
         </p>
       </footer>

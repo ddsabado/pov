@@ -7,7 +7,7 @@ import { fill } from '@cloudinary/url-gen/actions/resize';
 import { quality, format } from '@cloudinary/url-gen/actions/delivery';
 import { auto } from '@cloudinary/url-gen/qualifiers/quality';
 import { auto as autoFormat } from '@cloudinary/url-gen/qualifiers/format';
-import PhotoModal from '../components/PhotoModal';
+import AlbumPhotoModal from '../components/AlbumPhotoModal';
 import { prefetchImage, prefetchImagesInOrder } from '../utils/imagePrefetch';
 
 const HSH = 'a3ae993f4c5d606782c9a5fefbb30982d039c4801860ba0971e12c385391153d';
@@ -52,7 +52,7 @@ export const Gate = () => {
           value={val}
           onChange={e => { setVal(e.target.value); setErr(false); }}
           autoFocus
-          className="bg-transparent border-b text-[14px] px-2 py-1 w-48 text-center outline-none transition-colors duration-200"
+          className="w-48 border-b bg-transparent px-2 py-1 text-center font-sans text-sm outline-none transition-colors duration-200"
           style={{
             borderColor: err ? 'rgb(239 68 68)' : 'rgb(55 65 81)',
             color: err ? 'rgb(239 68 68)' : 'white',
@@ -62,7 +62,7 @@ export const Gate = () => {
         <button
           type="submit"
           disabled={busy || !val}
-          className="font-meta text-gray-400 hover:text-white text-[11px] tracking-[0.2em] uppercase transition-colors duration-200 disabled:opacity-30"
+          className="font-meta text-[11px] font-semibold tracking-[0.16em] text-gray-400 hover:text-white uppercase transition-colors duration-200 disabled:opacity-30"
         >
           Enter
         </button>
@@ -86,7 +86,7 @@ export const AlbumGrid = ({ ids, label }: AlbumGridProps) => {
     <motion.div className="min-h-screen bg-black text-white" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
       <div className="h-14" />
       <div className="max-w-5xl mx-auto px-4 py-16">
-        <p className="font-meta text-gray-600 text-[11px] tracking-[0.2em] uppercase mb-12">{label}</p>
+        <p className="font-meta text-[11px] font-semibold tracking-[0.16em] text-gray-600 uppercase mb-12">{label}</p>
         <div className="grid grid-cols-3 gap-1">
           {ids.map((id, i) => (
             <button
@@ -112,7 +112,7 @@ export const AlbumGrid = ({ ids, label }: AlbumGridProps) => {
 
       <AnimatePresence>
         {modalIndex !== null && (
-          <PhotoModal
+          <AlbumPhotoModal
             ids={ids}
             activeIndex={modalIndex}
             onClose={() => setModalIndex(null)}
@@ -129,7 +129,7 @@ const Album = () => {
   const { unlocked } = useAuth();
   return unlocked ? (
     <motion.div className="min-h-screen bg-black flex items-center justify-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <p className="font-meta text-gray-600 text-[11px] tracking-[0.2em] uppercase">Select an album</p>
+      <p className="font-meta text-[11px] font-semibold tracking-[0.16em] text-gray-600 uppercase">Select an album</p>
     </motion.div>
   ) : <Gate />;
 };

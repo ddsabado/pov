@@ -110,7 +110,7 @@ const Navbar = () => {
           <motion.span
             layoutId="ddwump"
             onClick={() => navigate("/")}
-            className="font-bold text-2xl tracking-tight cursor-pointer hover:text-gray-300 transition-colors duration-[200ms]"
+            className="font-sans text-xl font-bold leading-none tracking-[-0.025em] cursor-pointer hover:text-gray-300 transition-colors duration-[200ms] sm:text-2xl"
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
           >
             DDWUMP
@@ -127,7 +127,7 @@ const Navbar = () => {
                     onClick={() => handleTabClick(tab)}
                     whileTap={{ scale: 0.95 }}
                     whileFocus={{ scale: 1.05 }}
-                    className="relative px-3 py-1.5 text-[14px] font-light rounded-full outline-none cursor-pointer"
+                    className="relative rounded-full px-3 py-1.5 font-sans text-xs font-medium leading-none tracking-[0.015em] outline-none cursor-pointer"
                     style={{ color: isSelected ? "#fff" : "#9ca3af" }}
                   >
                     {isSelected && (
@@ -160,7 +160,7 @@ const Navbar = () => {
               >
                 <motion.button
                   whileTap={{ scale: 0.95 }}
-                  className="relative px-3 py-1.5 text-[14px] font-light rounded-full outline-none cursor-pointer"
+                  className="relative rounded-full px-3 py-1.5 font-sans text-xs font-medium leading-none tracking-[0.015em] outline-none cursor-pointer"
                   style={{ color: isAlbumActive ? "#fff" : "#9ca3af" }}
                 >
                   {isAlbumActive && (
@@ -193,7 +193,7 @@ const Navbar = () => {
                               navigate(item.path);
                               setAlbumOpen(false);
                             }}
-                            className={`w-full text-left px-4 py-2.5 text-[13px] font-meta transition-colors duration-150 hover:bg-white/5 ${
+                            className={`w-full px-4 py-2.5 text-left font-meta text-xs font-medium tracking-[0.03em] transition-colors duration-150 hover:bg-white/5 ${
                               location.pathname === item.path
                                 ? "text-white"
                                 : "text-gray-400 hover:text-white"

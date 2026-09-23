@@ -17,16 +17,16 @@ colors:
   sage: "#A1B5A1"
 typography:
   display:
-    fontFamily: "Inter, system-ui, sans-serif"
-    fontWeight: 700
-    lineHeight: 1.05
-    letterSpacing: "tight"
+    fontFamily: "Spectral, Georgia, serif"
+    fontWeight: 600
+    lineHeight: 1.02
+    letterSpacing: "-0.03em"
   body:
-    fontFamily: "Inter, system-ui, sans-serif"
-    fontWeight: 300
-  meta:
-    fontFamily: "IBM Plex Mono, ui-monospace, monospace"
+    fontFamily: "Manrope, ui-sans-serif, system-ui, sans-serif"
     fontWeight: 400
+  meta:
+    fontFamily: "Manrope, ui-sans-serif, system-ui, sans-serif"
+    fontWeight: 600
     fontSize: "11px"
     letterSpacing: "0.14em"
 rounded:
@@ -56,7 +56,7 @@ components:
 
 DDWUMP is a raw, documentary-minded photography archive experienced in low light. The interface is intentionally recessive: near-black planes let photographs establish the changing color world, while compact text, navigation, and controls feel like the quiet annotations of a personal notebook.
 
-The system is minimal without becoming sterile. Inter carries direct, unornamented reading; IBM Plex Mono marks metadata, labels, specifications, and archive context. Interaction has a quietly tactile quality through restrained opacity shifts, translucent active surfaces, and spring movement—never ornamental spectacle competing with an image.
+The system is minimal without becoming sterile. Spectral gives titles the lived-in character of a field notebook without taking over the page; Manrope keeps navigation, labels, and reading copy steady and clean in low light. Interaction has a quietly tactile quality through restrained opacity shifts, translucent active surfaces, and spring movement—never ornamental spectacle competing with an image.
 
 **Key Characteristics:**
 
@@ -92,22 +92,22 @@ The incumbent interface uses neutral darkness as a stable viewing condition, all
 
 ## Typography
 
-**Display Font:** Inter (with system sans-serif fallback)
+**Display Font:** Spectral (with Georgia fallback)
 
-**Body Font:** Inter (with system sans-serif fallback)
+**Body Font:** Manrope (with system sans-serif fallback)
 
-**Label/Mono Font:** IBM Plex Mono (with ui-monospace fallback)
+**Label Font:** Manrope (with system sans-serif fallback)
 
-**Character:** The pairing is direct and contemporary: Inter keeps names and descriptions clear, while IBM Plex Mono turns small labels, technical details, and archive context into quiet field notes.
+**Character:** The pairing keeps the archive human but disciplined: Spectral gives titles a tactile editorial note, while Manrope handles navigation, descriptions, and compact labels with clarity. Metadata is tracked and semibold rather than monospaced, avoiding technical affectation.
 
 ### Hierarchy
 
-- **Display** (700, 42px desktop / 18px compact, 1.05 line-height): Gear names and high-emphasis titles.
-- **Headline** (600, 28–34px, 1.2 line-height): Simple page headings such as About.
-- **Body** (300, 11–16px, 1.5–1.75 line-height): Gear descriptions and longer supporting copy.
-- **Label** (400, 10–13px, 0.14–0.2em tracking, uppercase where used): Navigation-adjacent metadata, album names, subtitles, and copyright.
+- **Display** (Spectral 500–600, 48px desktop / 24px compact, 1.02 line-height): Gear names and high-emphasis titles. The DDWUMP wordmark alone uses Manrope 700 for a firm, sans-serif visual anchor.
+- **Headline** (Spectral 500, 36–48px, 1.0 line-height): Simple page headings such as About.
+- **Body** (Manrope 400, 14–16px, 1.7 line-height): Gear descriptions and longer supporting copy.
+- **Label** (Manrope 600, 11–12px, 0.02–0.16em tracking, uppercase where useful): Navigation, album names, subtitles, and copyright.
 
-**The Annotation Rule.** Mono type is for context, not emphasis: keep it small, tracked, and quiet; use Inter for titles and language a visitor must read first.
+**The Annotation Rule.** Labels are concise, tracked, and quiet; use Spectral for titles and Manrope for language a visitor must read first.
 
 ## Layout
 
@@ -161,7 +161,7 @@ The private album gate uses a centered, transparent password field with a single
 
 - **Do** make the photograph the primary color, texture, and subject of every image-led surface.
 - **Do** use black planes, low-contrast gray annotation, and translucent layers to keep controls receded.
-- **Do** reserve IBM Plex Mono for small archival context, specifications, labels, and timestamps.
+- **Do** use compact Manrope labels for archival context, specifications, and timestamps.
 - **Do** retain varied gallery geometry and generous separation between photo groups.
 - **Do** use spring motion for spatial movement and short opacity transitions for quiet feedback.
 
