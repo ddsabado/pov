@@ -109,7 +109,7 @@ const AlbumPage = () => {
   if (!unlocked) return <Gate />;
   if (!album) return (
     <div className="min-h-screen bg-black flex items-center justify-center">
-      <p className="font-meta text-gray-600 text-[11px] tracking-[0.2em] uppercase">Not found</p>
+      <p className="font-meta text-[11px] font-semibold tracking-[0.16em] text-gray-600 uppercase">Not found</p>
     </div>
   );
 

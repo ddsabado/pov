@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Spectral:wght@500;600;700&display=swap');
 @import "tailwindcss";
 
 html, body {
@@ -5,14 +6,24 @@ html, body {
   margin: 0;
 }
 
+html {
+  font-synthesis: none;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
 body.has-scrollbar {
   scrollbar-gutter: stable;
 }
 
 @theme {
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-display: "Inter", system-ui, sans-serif;
-  --font-meta: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Spectral", Georgia, serif;
+  --font-meta: "Manrope", ui-sans-serif, system-ui, sans-serif;
 
   --color-bg: #F2E7D7;
   --color-surface: #E8D8C3;

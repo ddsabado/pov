@@ -1,9 +1,22 @@
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence, stagger } from 'motion/react';
-import { AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
-import { photoGroups, getThumbnail, getFullRes, Photo } from '../data/photos';
+import { memo, useCallback, useRef, useState } from 'react';
+import { motion, stagger } from 'motion/react';
+import { photoGroups, getThumbnail, Photo } from '../data/photos';
 import PhotoModal from './PhotoModal';
-import { prefetchImage, prefetchImagesInOrder } from '../utils/imagePrefetch';
+
+interface PhotoPosition {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+}
+
+interface ActivePhoto {
+  id: string;
+  thumbnailUrl: string;
+  position: PhotoPosition;
+  naturalWidth: number;
+  naturalHeight: number;
+}
 
 // Parent group — triggers stagger when it enters viewport
 const groupVariants = {
@@ -35,59 +48,99 @@ const photoVariants = {
   },
 };
 
-const PhotoCard = ({
+const PhotoCard = memo(({
   photo,
-  onClick,
-  onIntent,
+  onOpen,
+  isHidden,
 }: {
   photo: Photo;
-  onClick: () => void;
-  onIntent: () => void;
-}) => (
+  onOpen: (photo: Photo, position: PhotoPosition, naturalWidth: number, naturalHeight: number) => void;
+  isHidden: boolean;
+}) => {
+  const thumbnailUrl = getThumbnail(photo.publicId).toURL();
+
+  return (
   <motion.button
     type="button"
     variants={photoVariants}
-    onClick={onClick}
-    onFocus={onIntent}
-    onPointerEnter={onIntent}
-    onPointerDown={onIntent}
+    onClick={event => {
+      const image = event.currentTarget.querySelector('img');
+      const rect = event.currentTarget.getBoundingClientRect();
+
+      onOpen(
+        photo,
+        { left: rect.left, top: rect.top, width: rect.width, height: rect.height },
+        image?.naturalWidth || rect.width,
+        image?.naturalHeight || rect.height,
+      );
+    }}
     className="cursor-pointer overflow-hidden w-full h-full appearance-none border-0 bg-transparent p-0 text-left"
     aria-label={`View ${photo.publicId.split('_')[0]}`}
     whileHover={{ opacity: 0.9, transition: { duration: 0.2 } }}
   >
-    <AdvancedImage
-      cldImg={getThumbnail(photo.publicId)}
-      plugins={[lazyload(), placeholder({ mode: 'blur' })]}
+    <img
+      src={thumbnailUrl}
       alt={photo.publicId.split('_')[0]}
-      className="w-full h-full object-cover"
+      loading="lazy"
+      decoding="async"
+      className={`h-full w-full object-cover ${isHidden ? 'invisible' : ''}`}
     />
   </motion.button>
-);
+  );
+});
+
+PhotoCard.displayName = 'PhotoCard';
 
 const Gallery = () => {
-  const allPhotos = photoGroups.flatMap(g => g.photos);
-  const allIds = allPhotos.map(p => p.publicId);
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [activePhoto, setActivePhoto] = useState<ActivePhoto | null>(null);
+  const [hiddenPhotoId, setHiddenPhotoId] = useState<string | null>(null);
+  const [isClosing, setIsClosing] = useState(false);
+  const openingPhotoId = useRef<string | null>(null);
 
-  useEffect(() => prefetchImagesInOrder(allPhotos.map(photo => getFullRes(photo.publicId).toURL())), []);
+  const openPhoto = useCallback((
+    photo: Photo,
+    position: PhotoPosition,
+    naturalWidth: number,
+    naturalHeight: number,
+  ) => {
+    if (openingPhotoId.current) return;
 
-  const prefetchFullRes = (publicId: string) => prefetchImage(getFullRes(publicId).toURL());
+    openingPhotoId.current = photo.publicId;
+    setHiddenPhotoId(photo.publicId);
+    setActivePhoto({
+      id: photo.publicId,
+      thumbnailUrl: getThumbnail(photo.publicId).toURL(),
+      position,
+      naturalWidth,
+      naturalHeight,
+    });
+  }, []);
 
-  const openPhoto = (photo: Photo) => setActiveIndex(allIds.indexOf(photo.publicId));
+  const closePhoto = useCallback(() => {
+    if (!activePhoto || isClosing) return;
+    setIsClosing(true);
+  }, [activePhoto, isClosing]);
+
+  const finishClose = useCallback(() => {
+    setActivePhoto(null);
+    setHiddenPhotoId(null);
+    setIsClosing(false);
+    openingPhotoId.current = null;
+  }, []);
 
   const card = (photo: Photo) => (
     <PhotoCard
       key={photo.id}
       photo={photo}
-      onClick={() => openPhoto(photo)}
-      onIntent={() => { prefetchFullRes(photo.publicId); }}
+      onOpen={openPhoto}
+      isHidden={hiddenPhotoId === photo.publicId}
     />
   );
 
   const renderGroup = (group: typeof photoGroups[number], groupIndex: number) => {
     const { photos } = group;
-    const leftOffset = groupIndex % 2 === 0 ? '' : 'mt-16';
-    const rightOffset = groupIndex % 2 === 0 ? 'mt-16' : '';
+    const leftOffset = groupIndex % 2 === 0 ? '' : 'mt-10 md:mt-16';
+    const rightOffset = groupIndex % 2 === 0 ? 'mt-10 md:mt-16' : '';
 
     // staggered: each photo alternates left/right margin, stacked vertically
     if (group.layout === 'staggered') {
@@ -309,7 +362,7 @@ const Gallery = () => {
       return (
         <div className="flex flex-col gap-4">
           {landscapePhotos.map((photo, i) => (
-            <div key={photo.id} className={i % 2 === 0 ? 'mr-16' : 'ml-16'}>
+            <div key={photo.id} className={i % 2 === 0 ? 'mr-8 sm:mr-12 md:mr-16' : 'ml-8 sm:ml-12 md:ml-16'}>
               {card(photo)}
             </div>
           ))}
@@ -328,31 +381,40 @@ const Gallery = () => {
   return (
     <section id="gallery" className="bg-black pb-24" style={{ scrollMarginTop: '80px' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {photoGroups.map((group, groupIndex) => (
-          <motion.div
-            key={group.name}
-            className="mb-24"
-            variants={groupVariants}
-            initial="hidden"
-            whileInView="visible"
-            exit="hidden"
-            viewport={{ once: false, amount: 0.05 }}
-          >
-            {renderGroup(group, groupIndex)}
-          </motion.div>
-        ))}
+        {photoGroups.map((group, groupIndex) => {
+          const flowAnchor = groupIndex % 2 === 0 ? 'md:left-[62%]' : 'md:left-[38%]';
+          const hasFollowingGroup = groupIndex < photoGroups.length - 1;
+
+          return (
+            <motion.div
+              key={group.name}
+              className="relative pb-14 sm:pb-[4.5rem] md:pb-24 last:pb-0"
+              variants={groupVariants}
+              initial="hidden"
+              whileInView="visible"
+              exit="hidden"
+              viewport={{ once: false, amount: 0.05 }}
+            >
+              {renderGroup(group, groupIndex)}
+              {hasFollowingGroup && (
+                <span
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute bottom-0 left-1/2 h-9 w-px -translate-x-1/2 bg-gradient-to-b from-white/20 via-white/10 to-transparent sm:h-11 md:h-12 ${flowAnchor}`}
+                />
+              )}
+            </motion.div>
+          );
+        })}
       </div>
 
-      <AnimatePresence>
-        {activeIndex !== null && (
-          <PhotoModal
-            ids={allIds}
-            activeIndex={activeIndex}
-            onClose={() => setActiveIndex(null)}
-            onNavigate={setActiveIndex}
-          />
-        )}
-      </AnimatePresence>
+      {activePhoto && (
+        <PhotoModal
+          photo={activePhoto}
+          isClosing={isClosing}
+          onClose={closePhoto}
+          onExitComplete={finishClose}
+        />
+      )}
     </section>
   );
 };

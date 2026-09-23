@@ -161,12 +161,12 @@ export default function Gear() {
                 exit="exit"
                 onAnimationComplete={() => { isFirstRender.current = false; }}
               >
-              <h1 className="text-[18px] md:text-[42px] font-bold leading-[1.05] tracking-tight mb-1 md:mb-2">{active.name}</h1>
-              <p className="font-meta text-gray-500 text-[10px] md:text-[13px] tracking-[0.15em] uppercase mb-2 md:mb-8">{active.subtitle}</p>
-              <p className="text-gray-300 text-[11px] md:text-[16px] leading-[1.5] md:leading-[1.75] font-light mb-3 md:mb-10 max-w-lg">{active.description}</p>
+              <h1 className="font-display text-2xl font-medium leading-[1.02] tracking-[-0.03em] mb-2 md:mb-3 md:text-5xl">{active.name}</h1>
+              <p className="font-meta text-[11px] font-semibold tracking-[0.12em] text-gray-500 uppercase mb-3 md:mb-8 md:text-xs">{active.subtitle}</p>
+              <p className="max-w-lg text-sm font-normal leading-[1.7] text-gray-300 mb-5 md:mb-10 md:text-base">{active.description}</p>
               <ul className="flex flex-col gap-1 md:gap-2">
                 {active.specs.map(spec => (
-                  <li key={spec} className="flex items-center gap-2 text-[10px] md:text-[13px] text-gray-400 font-meta">
+                  <li key={spec} className="flex items-center gap-2 font-meta text-[11px] font-medium tracking-[0.02em] text-gray-400 md:text-xs">
                     <span className="w-1 h-1 rounded-full bg-gray-600 flex-shrink-0" />
                     {spec}
                   </li>

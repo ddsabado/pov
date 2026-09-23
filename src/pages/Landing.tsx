@@ -115,7 +115,7 @@ const Landing = () => {
       <div className="absolute top-6 right-8 z-10">
         <motion.span
           layoutId="ddwump"
-          className="font-bold text-white text-[15px] tracking-widest"
+          className="font-sans text-2xl font-bold leading-none tracking-[-0.025em] text-white"
         >
           DDWUMP
         </motion.span>
@@ -129,7 +129,7 @@ const Landing = () => {
       >
         <motion.button
           onClick={enter}
-          className="font-medium text-white text-[13px] tracking-[0.3em] uppercase px-10 py-3 bg-transparent cursor-pointer select-none"
+          className="font-sans text-xs font-semibold tracking-[0.22em] text-white uppercase px-10 py-3 bg-transparent cursor-pointer select-none sm:text-sm"
           style={{ border: '2px solid rgba(255,255,255,0.6)' }}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -156,7 +156,7 @@ const Landing = () => {
         animate={exiting ? { opacity: 0 } : { opacity: 1 }}
         transition={{ duration: 0.4 }}
       >
-        <p className="font-meta text-white/40 text-[11px] tracking-[0.14em]">
+        <p className="font-meta text-[11px] font-medium tracking-[0.14em] text-white/40">
           © 2026 Dwight Sabado. All rights reserved.
         </p>
       </motion.div>
